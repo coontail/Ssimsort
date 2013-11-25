@@ -42,9 +42,13 @@ module SsimSort
 		set = files.combination(2).to_a
 		set.each do |file1,file2|
 			path = "#{output_path}/#{file1.split("/").last}/"
-			dir = FileUtils.makedirs(path) unless File.exists?(path)
 			simil = SsimSort.ssim(file1,file2)
-			simil < tolerance ? next : FileUtils.cp(file2,path)
+			if simil < tolerance
+				next
+			else
+				FileUtils.makedirs(path) unless File.exists?(path)
+				FileUtils.cp(file2,path)
+			end
 		end
 	end
 
