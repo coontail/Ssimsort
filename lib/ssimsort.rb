@@ -39,7 +39,7 @@ module SsimSort
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
 		files.select!{|f| formats=~ f}
-		set = files.combination(2).to_a
+		set = files.product(files)
 		set.each do |file1,file2|
 			path = "#{output_path}/#{file1.split("/").last}/"
 			simil = SsimSort.ssim(file1,file2)
