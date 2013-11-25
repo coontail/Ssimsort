@@ -37,6 +37,7 @@ module SsimSort
 	def SsimSort.sort(input_path,output_path,tolerance=0.8)
 		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
+		files.pop(2) #Remove . and ..
 		files.select!{|f| formats=~ f}
 		set = files.combination(2).to_a
 		set.each do |file1,file2|
