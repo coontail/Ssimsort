@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'ssimsort'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2013-11-25'
   s.summary     = "SsimSort"
   s.description = "Sort images easily by their similarity"

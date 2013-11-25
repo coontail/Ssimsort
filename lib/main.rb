@@ -36,11 +36,11 @@ module SsimSort
 
 	def SsimSort.sort(input_path,output_path,tolerance=0.8)
 		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
-		files = Dir.entries(ARGV[0]).map {|file| File.absolute_path("#{ARGV[0]}/#{file}")}
+		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.select!{|f| formats=~ f}
 		set = files.combination(2).to_a
 		set.each do |file1,file2|
-			path = "#{ARGV[1]}/#{file1.split("/").last}/"
+			path = "#{output_path}/#{file1.split("/").last}/"
 			dir = FileUtils.makedirs(path) unless File.exists?(path)
 			simil = SsimSort.ssim(file1,file2)
 			simil < tolerance ? next : FileUtils.cp(file2,path)
