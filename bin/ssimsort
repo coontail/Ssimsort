@@ -4,4 +4,4 @@ root = File.expand_path("../..", __FILE__)
 require "#{root}/lib/ssimsort.rb"
 
 
-SsimSort.sort(ARGV[0],ARGV[1],*ARGV[2])
+SsimSort.sort(ARGV[0],ARGV[1],*ARGV[2].to_i)
