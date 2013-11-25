@@ -45,7 +45,7 @@ module SsimSort
 			simil = SsimSort.ssim(file1,file2)
 			if simil < tolerance
 				next
-			else
+			elsif simil > tolerance
 				FileUtils.makedirs(path) unless File.exists?(path)
 				FileUtils.cp(file2,path)
 			end
