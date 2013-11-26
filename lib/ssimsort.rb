@@ -65,7 +65,7 @@ module SsimSort
 		end
 		sim_list = sim_dict.sort_by {|k,v| v}.reverse
 		sim_list.each_with_index do |k,i|
-			FileUtils.cp(k[0],"#{output_path}/#{i}(#{k[0]})#{File.extname(k)}")
+			FileUtils.cp(k[0],"#{output_path}/#{i}(#{k[0]})#{File.extname(k[0])}")
 		end
 	end
 
