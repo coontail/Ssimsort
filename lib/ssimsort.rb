@@ -8,13 +8,14 @@ module SsimSort
 	require "RMagick"
 	require "fileutils"
 	include Magick
+	
 
 	def SsimSort.cov(x,y)
 		return x.zip(y).covariance
 	end
 
 
-	def SsimSort.get_lum(img,px=100)
+	def SsimSort.get_lum(img,px=80)
 		img = img.scale(px,px)
 		lum_average = img.get_pixels(0, 0, img.columns, img.rows).map do |p|
 			p.to_HSL[2]
