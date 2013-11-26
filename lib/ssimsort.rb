@@ -30,7 +30,7 @@ module SsimSort
 		moy_x, moy_y = x.mean, y.mean
 		a = (2*moy_x*moy_y+cA)*(2*(cov(x,y))+cB)
 		b = (moy_x**2+moy_y**2+cA)*(var_x+var_y+cB)
-		(a/b) < 0 ? 0 : (a/b).round(4)
+		(a/b) < 0 ? 0 : (a/b).round(5)
 	end
 
 
@@ -63,9 +63,9 @@ module SsimSort
 			simil = SsimSort.ssim(filecomp,file)
 			sim_dict[file] = simil	
 		end
-		sim_dict = sim_dict.sort_by {|k,v| v}.reverse.map {|k,v| k}
-		sim_dict.each_with_index do |k,i|
-			FileUtils.cp(k,"#{output_path}/#{i}#{File.extname(k)}")
+		sim_list = sim_dict.sort_by {|k,v| v}.reverse
+		sim_list.each_with_index do |k,i|
+			FileUtils.cp(k[0],"#{output_path}/#{i}(#{k[0]})#{File.extname(k)}")
 		end
 	end
 
