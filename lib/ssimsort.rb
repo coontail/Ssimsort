@@ -14,7 +14,7 @@ module SsimSort
 	end
 
 
-	def SsimSort.get_lum(img,px=300)
+	def SsimSort.get_lum(img,px=100)
 		img = img.scale(px,px)
 		lum_average = img.get_pixels(0, 0, img.columns, img.rows).map do |p|
 			p.to_HSL[2]
@@ -30,7 +30,7 @@ module SsimSort
 		moy_x, moy_y = x.mean, y.mean
 		a = (2*moy_x*moy_y+cA)*(2*(cov(x,y))+cB)
 		b = (moy_x**2+moy_y**2+cA)*(var_x+var_y+cB)
-		(a/b) < 0 ? 0 : (a/b).round(3)
+		(a/b) < 0 ? 0 : (a/b).round(4)
 	end
 
 
@@ -43,12 +43,29 @@ module SsimSort
 		set.each do |file1,file2|
 			path = "#{output_path}/#{file1.split("/").last}/"
 			simil = SsimSort.ssim(file1,file2)
-			if simil < tolerance
-				next
-			elsif simil > tolerance
+			if simil > tolerance
 				FileUtils.makedirs(path) unless File.exists?(path)
 				FileUtils.cp(file2,path)
 			end
+		end
+	end
+
+	def SsimSort.sort_comp(filecomp_path,input_path,output_path)
+		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
+		filecomp = File.absolute_path(filecomp_path)
+		output_path = File.absolute_path(output_path+"/")
+		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
+		files.shift(2) #Remove . and ..
+		files.select!{|f| formats=~ f}
+		sim_dict = {}
+		FileUtils.mkdir(output_path) unless File.exists?(output_path)
+		files.each do |file|
+			simil = SsimSort.ssim(filecomp,file)
+			sim_dict[file] = simil	
+		end
+		sim_dict = sim_dict.sort_by {|k,v| v}.reverse.map {|k,v| k}
+		sim_dict.each_with_index do |k,i|
+			FileUtils.cp(k,"#{output_path}/#{i}#{File.extname(k)}")
 		end
 	end
 
