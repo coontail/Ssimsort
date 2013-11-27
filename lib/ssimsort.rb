@@ -9,6 +9,7 @@ module SsimSort
 	require "fileutils"
 	include Magick
 	
+	@formats = /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
 
 	def SsimSort.cov(x,y)
 		return x.zip(y).covariance
@@ -36,10 +37,10 @@ module SsimSort
 
 	
 	def SsimSort.ssim_dir(input_path)
-		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
+		
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
-		files.select!{|f| formats=~ f}
+		files.select!{|f| @formats=~ f}
 		set = files.product(files)
 		set.each do |file1,file2|
 			simil = SsimSort.ssim(file1,file2)
@@ -47,11 +48,18 @@ module SsimSort
 		end
 	end
 
-	def SsimSort.sort(input_path,output_path,tolerance=0.8)
-		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
+	def SsimSort.ssim_dir_mean(input_path)
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
-		files.select!{|f| formats=~ f}
+		files.select!{|f| @formats=~ f}
+		set = files.product(files)
+		l = set.map {|file1,file2| SsimSort.ssim(file1,file2)}.mean
+	end
+
+	def SsimSort.sort(input_path,output_path,tolerance=0.8)
+		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
+		files.shift(2) #Remove . and ..
+		files.select!{|f| @formats=~ f}
 		set = files.product(files)
 		set.each do |file1,file2|
 			path = "#{output_path}/#{file1.split("/").last}/"
@@ -64,12 +72,11 @@ module SsimSort
 	end
 
 	def SsimSort.sort_comp(filecomp_path,input_path,output_path)
-		formats =  /(.jpg$|.png$|.JPG$|.jpeg$|.PNG$|.gif$|.bmp$|.BMP$)/
 		filecomp = File.absolute_path(filecomp_path)
 		output_path = File.absolute_path(output_path+"/")
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
-		files.select!{|f| formats=~ f}
+		files.select!{|f| @formats=~ f}
 		sim_dict = {}
 		FileUtils.mkdir(output_path) unless File.exists?(output_path)
 		files.each do |file|
