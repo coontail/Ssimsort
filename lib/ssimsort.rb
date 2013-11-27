@@ -36,8 +36,7 @@ module SsimSort
 	end
 
 	
-	def SsimSort.ssim_dir(input_path)
-		
+	def SsimSort.ssim_dir(input_path)	
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
 		files.select!{|f| @formats=~ f}
