@@ -52,7 +52,7 @@ module SsimSort
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}
 		files.shift(2) #Remove . and ..
 		files.select!{|f| @formats=~ f}
-		set = files.combination(2)
+		set = files.combination(2).to_a
 		l = set.map {|file1,file2| SsimSort.ssim(file1,file2)}.mean
 	end
 
