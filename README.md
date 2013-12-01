@@ -12,7 +12,23 @@ gem install ssimsort
 *Use ssim as an executable* :
 
 ~~~
-$ ssim <INPUT>, <OUTPUT>, <TOLERANCE>
+#(Sort) Compares all images from the input folder and creates new folders
+#containing every images within the tolerance range
+
+$ ssimsort -s  <INPUT>, <OUTPUT>, <TOLERANCE>
+
+#(Sort-Compare) Compares all images from the input folder with the base_image
+#and sort them by their similarity ratio (ssim)
+
+$ ssimsort -sc  <BASE_IMAGE>, <INPUT>, <OUTPUT>
+
+#(Compare) Compares two images and displays their similarity ratio (ssim)
+
+$ ssimsort -c <FILE_1>,<FILE_2>
+
+#(Directory comparison) Compares all the images from a folder 
+
+$ ssimsort -dc  <INPUT_DIR>
 
 ~~~
 
