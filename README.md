@@ -30,7 +30,8 @@ $ ssimsort -c <FILE_1>,<FILE_2>
 
 $ ssimsort -dc  <INPUT_DIR>
 
-#(Mean) Calculates the average similarity ratio (A low mean means that the folder content is very heterogeneous)
+#(Mean) Calculates the average similarity ratio (A low mean means that the 
+#folder content is very heterogeneous)
 
 $ ssimsort -m  <INPUT_DIR>
 
