@@ -30,6 +30,11 @@ $ ssimsort -c <FILE_1>,<FILE_2>
 
 $ ssimsort -dc  <INPUT_DIR>
 
+#(Mean) Calculates the average similarity ratio (A low mean means that the folder content is very heterogeneous)
+
+$ ssimsort -m  <INPUT_DIR>
+
+
 ~~~
 
 *(Tolerance is a number between 0.0 and 1.0 that defines how similar the images you want to sort will be, 1.0 being the exact same image.)*
