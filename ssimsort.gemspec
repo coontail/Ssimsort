@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'ssimsort'
-  s.version     = '0.2.6'
-  s.date        = '2013-11-27'
+  s.version     = '0.2.7'
+  s.date        = '2013-12-02'
   s.summary     = "SsimSort"
   s.description = "Sort images easily by their similarity"
   s.authors     = ["Galaad Gauthier"]

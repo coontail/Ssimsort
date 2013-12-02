@@ -26,7 +26,7 @@ module SsimSort
 
 
 	def SsimSort.ssim(file1,file2)
-		cA,cB = 0, 0
+		cA,cB = 0.01, 0.03
 		x,y = get_lum(ImageList.new(file1)), get_lum(ImageList.new(file2))
 		var_x, var_y = x.variance, y.variance
 		moy_x, moy_y = x.mean, y.mean
