@@ -35,6 +35,12 @@ module SsimSort
 		(a/b) < 0 ? 0 : (a/b).round(5)
 	end
 
+	def SsimSort.hash_image(file1)
+		x = get_lum(ImageList.new(file1))
+		z = x.variance.to_s + x.sum.to_s
+		puts z.gsub(/(\D|0)/,'').to_i.to_s(32) 
+	end
+
 	
 	def SsimSort.ssim_dir(input_path)	
 		files = Dir.entries(input_path).map {|file| File.absolute_path("#{input_path}/#{file}")}

@@ -4,10 +4,19 @@ root = File.expand_path("../..", __FILE__)
 require "#{root}/lib/ssimsort.rb"
 
 case ARGV[0]
-	when "-m" then p SsimSort.ssim_dir_mean(ARGV[1]) #Mean
-	when "-c" then p SsimSort.ssim(ARGV[1],ARGV[2]) #Compare 
-	when "-dc" then SsimSort.ssim_dir(ARGV[1]) #Directory Compare
-	when "-s" then SsimSort.sort(ARGV[1],ARGV[2],*ARGV[3]) #Sort
-	when "-sc" then SsimSort.sort_comp(ARGV[1],ARGV[2],ARGV[3]) #Sort by comparison to another image
-	else puts "SSIMSORT:\n-s <input_dir>,<output_dir>,[<tolerance>]\n-sc <base_file>,<input_dir>,<output_dir>\n-c <file_1>,<file_2>\n-dc <input_dir>\n"
+	when "-m", "--mean" 				then p SsimSort.ssim_dir_mean(ARGV[1]) #Mean
+	when "-c", "--compare" 				then p SsimSort.ssim(ARGV[1],ARGV[2]) #Compare 
+	when "-dc", "--directory-compare" 	then SsimSort.ssim_dir(ARGV[1]) #Directory Compare
+	when "-s", "--sort" 				then SsimSort.sort(ARGV[1],ARGV[2],*ARGV[3]) #Sort
+	when "-sc", "--sort-compare"		then SsimSort.sort_comp(ARGV[1],ARGV[2],ARGV[3]) #Sort by comparison to another image
+	when "-hi", "--hash-image" 			then SsimSort.hash_image(ARGV[1]) #Make a hash from an image
+	
+	else puts "\nSsimSort usage:
+		    -m, (--mean) <input_dir>
+		    -s, (--sort) <input_dir>,<output_dir>,[<tolerance>]
+		    -sc, (--sort-compare) <base_file>,<input_dir>,<output_dir>
+		    -c, (--compare) <file_1>,<file_2>
+		    -dc, (--directory-compare) <input_dir>
+		    -hi, (--hash-image) <image_file>
+		    \n"
 end
