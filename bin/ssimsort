@@ -4,10 +4,10 @@ root = File.expand_path("../..", __FILE__)
 require "#{root}/lib/ssimsort.rb"
 
 case ARGV[0]
-	when "-m" then p SsimSort.ssim_dir_mean(ARGV[1]) #Mean
-	when "-c" then p SsimSort.ssim(ARGV[1],ARGV[2]) #Compare 
-	when "-dc" then SsimSort.ssim_dir(ARGV[1]) #Directory Compare
-	when "-s" then SsimSort.sort(ARGV[1],ARGV[2],*ARGV[3]) #Sort
-	when "-sc" then SsimSort.sort_comp(ARGV[1],ARGV[2],ARGV[3]) #Sort by comparison to another image
+	when "-m" then p SsimSort::Core.ssim_dir_mean(ARGV[1]) #Mean
+	when "-c" then p SsimSort::Core.ssim(ARGV[1],ARGV[2]) #Compare 
+	when "-dc" then SsimSort::Core.ssim_dir(ARGV[1]) #Directory Compare
+	when "-s" then SsimSort::Core.sort(ARGV[1],ARGV[2],*ARGV[3]) #Sort
+	when "-sc" then SsimSort::Core.sort_comp(ARGV[1],ARGV[2],ARGV[3]) #Sort by comparison to another image
 	else puts "SSIMSORT:\n-s <input_dir>,<output_dir>,[<tolerance>]\n-sc <base_file>,<input_dir>,<output_dir>\n-c <file_1>,<file_2>\n-dc <input_dir>\n"
 end
